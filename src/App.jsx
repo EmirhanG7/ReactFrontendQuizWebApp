@@ -1,8 +1,5 @@
 import Header from "./assets/components/Header"
-import FeQuiz from "./assets/components/FeQuiz"
-import TopicSelection from "./assets/components/TopicSelection"
 import QuestionPage from "./assets/components/QuestionPage"
-import FinishQuiz from "./assets/components/FinishQuiz"
 import './index.css'
 import data from '/data.json'
 import { useState } from "react"
