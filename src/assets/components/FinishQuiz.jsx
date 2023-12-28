@@ -2,7 +2,17 @@ import Header from "./Header"
 import data from '/data.json';
 
 
-export default function FinishQuiz({ score, currentQuiz }) {
+export default function FinishQuiz({ score, currentQuiz, setCurrentQuiz }) {
+
+    function handlePlayAgain() {
+        localStorage.setItem('currentQuiz', JSON.stringify([]));
+        localStorage.setItem('currentQuestion', JSON.stringify(0));
+        localStorage.setItem('score', JSON.stringify(0));
+        setCurrentQuiz([]);
+    }
+
+
+
     return (
         <>
 
@@ -31,7 +41,7 @@ export default function FinishQuiz({ score, currentQuiz }) {
                             <p>out of 10</p>
                         </div>
                         <div className="playAgainBtn">
-                            <button><p>Play Again</p></button>
+                            <button onClick={handlePlayAgain}><p>Play Again</p></button>
                         </div> 
                     </div>
                 </div>

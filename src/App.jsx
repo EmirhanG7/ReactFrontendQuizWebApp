@@ -5,18 +5,22 @@ import data from '/data.json'
 import { useState } from "react"
 
 export default function App() {
-  const [currentQuiz, setCurrentQuiz] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuiz, setCurrentQuiz] = useState(localStorage.getItem('currentQuiz') ? JSON.parse(localStorage.getItem('currentQuiz')) : []);
+  const [currentQuestion, setCurrentQuestion] = useState(localStorage.getItem('currentQuestion') ? JSON.parse(localStorage.getItem('currentQuestion')) : 0);
   const [isGameOver, setGameOver] = useState(false);
 
 
   function handleQuestionPage(quiz) {
+    localStorage.setItem('currentQuiz', JSON.stringify(quiz));
     setCurrentQuiz(quiz);
     
   }
   
 
 console.log(currentQuiz)
+
+
+  
   
   return (
     <>
@@ -44,7 +48,7 @@ console.log(currentQuiz)
             </div>
           </div>
         :
-        <QuestionPage currentQuiz={currentQuiz} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
+        <QuestionPage currentQuiz={currentQuiz} setCurrentQuiz={setCurrentQuiz} currentQuestion={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
       }
     </>
 

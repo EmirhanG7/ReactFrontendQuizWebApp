@@ -1,5 +1,5 @@
 import Header from "./Header"
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import data from '/data.json';
 import FinishQuiz from "./FinishQuiz";
 
@@ -8,32 +8,64 @@ export default function QuestionPage({ currentQuiz, setCurrentQuiz, currentQuest
 
 
     const [userAnswer, setUserAnswer] = useState(null);
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState(localStorage.getItem('score') ? JSON.parse(localStorage.getItem('score')) : 0);
     const [submitted, setSubmitted] = useState(false);
     const [isSelectAnswer, setIsSelectAnswer] = useState(true);
-    const [abcd, setAbcd] = useState("A");
+    const [isAnswerWrong, setIsAnswerWrong] = useState(false);
   
     const handleAnswer = (answer) => {
-      setUserAnswer(answer)
+        setUserAnswer(answer)
     };
-    console.log(userAnswer)
-    
+
+
+    function handleAnswerSelected(e) {
+        const allAnswers = document.querySelectorAll('.answer');
+        allAnswers.forEach((answer) => answer.classList.remove('selected'));
+
+        const selectedAnswer = e.currentTarget;
+        selectedAnswer.classList.add('selected');
+    }
+
+
     
     const handleSubmit = () => {
         if(userAnswer === null) return(setIsSelectAnswer(false));
+
+        const correctAnswer = currentQuiz.questions[currentQuestion].answer;
+        const allAnswers = document.querySelectorAll('.answer');
+
+        allAnswers.forEach((answer) => {
+            const pText = answer.querySelector('p').innerText;
+            if (pText === correctAnswer) {
+                answer.classList.add('correct-answer');
+            } else if (pText === userAnswer) {
+                answer.classList.add('wrong-answer');
+            }
+            console.log(pText);
+        })
+
         if (userAnswer === currentQuiz.questions[currentQuestion].answer) {
-          setScore(score + 1);
+            setScore(score + 1);
+            localStorage.setItem('score', JSON.stringify(score + 1));
         }
         setIsSelectAnswer(true);
         setSubmitted(true);
     };
 
     const nextQuestion = () => {
-      if (currentQuestion < currentQuiz.questions.length - 1) {
+        document.querySelectorAll('.answer').forEach((answer) => {
+            answer.classList.remove('correct-answer');
+            answer.classList.remove('wrong-answer');
+        })
+
+        if (currentQuestion < currentQuiz.questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
-      }
-      setUserAnswer(null);
-      setSubmitted(false);
+        localStorage.setItem('currentQuestion', JSON.stringify(currentQuestion + 1));
+        const allAnswers = document.querySelectorAll('.answer');
+        allAnswers.forEach((answer) => answer.classList.remove('selected'));
+        }
+        setUserAnswer(null);
+        setSubmitted(false);
     };
   
 
@@ -73,12 +105,14 @@ export default function QuestionPage({ currentQuiz, setCurrentQuiz, currentQuest
                                 <div className="answers">
 
                                     {currentQuiz.questions[currentQuestion].options.map((answer, index) => (
-                                        <div className="answer">
+                                        <div className="answer" onClick={handleAnswerSelected}>
 
                                             <button key={index} onClick={() => handleAnswer(answer)}>
-                                                {index === 0 && ("A") || index === 1 && ("B") || index === 2 && ("C") || index === 3 && ("D")}
+                                                {index === 0 && <h2>A</h2> || index === 1 && <h2>B</h2> || index === 2 && <h2>C</h2> || index === 3 && <h2>D</h2>}
                                                 {' '}
-                                                <p>{answer}</p></button>
+                                                <p>{answer}</p>
+                                            </button>
+
                                         </div>
                                     ))}
                                     {!submitted ? 
@@ -96,7 +130,7 @@ export default function QuestionPage({ currentQuiz, setCurrentQuiz, currentQuest
                 )
                 :
                 (
-                    <FinishQuiz currentQuiz={currentQuiz} score={score} />
+                    <FinishQuiz setCurrentQuiz={setCurrentQuiz} currentQuiz={currentQuiz} score={score} />
                 )
 
             }

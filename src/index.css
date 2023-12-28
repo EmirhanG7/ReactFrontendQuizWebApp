@@ -213,15 +213,51 @@ body {
 
 
 
-
-
-
-
-
 .answers {
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  .answer {
+    border-radius: 24px;
+
+    & h2 {
+      color: var(--Grey-Navy);
+      font-family: Rubik;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%;
+      padding: 12px 18px;
+      background-color: #F6E7FF;
+      border-radius: 8px;
+    }
+
+  }
+
+  .selected {
+    border: 3px solid var(--Purple, #A729F5);
+    & h2 {
+      background-color: var(--Purple, #A729F5);
+      color: var(--Pure-White, #FFF);
+    }
+  }
+
+  & .wrong-answer {
+    border: 3px solid red;
+    & h2 {
+      background-color: red;
+      color: #fff;
+    }
+  }
+
+  .correct-answer {
+    border: 3px solid green;
+    & h2 {
+      background-color: green;
+      color: #fff;
+    }
+  }
 
   & button {
     display: flex;
@@ -279,6 +315,10 @@ body {
     }
   }
 }
+
+
+
+
 .answerBtn {
   color: var(--Pure-White, #FFF);
   font-family: Rubik;
@@ -417,13 +457,13 @@ body {
   }
 
   .answers {
-
     & button {
       width: 100%;
 
     }
-
   }
+
+
 
   .finishQuizContainer {
     flex-direction: column;
@@ -520,30 +560,7 @@ body {
     margin-bottom: 40px;
   }
 
-  .answers {
-    gap: 12px;
-
-    & button {
-      gap: 16px;
-      border-radius: 12px;
-      
-    }
-
-
-    & p {
-      font-size: 18px;
-    }
-
-    & .submitAnswer {
-      padding: 20px;
-      gap: 16px;
-      border-radius: 12px;
-      
-      & p {
-        font-size: 18px;
-      }
-    }
-  }
+  
 
 
   .quizComplete {
