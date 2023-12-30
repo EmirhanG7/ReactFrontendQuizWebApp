@@ -130,7 +130,7 @@ export default function QuestionPage({ currentQuiz, setCurrentQuiz, currentQuest
                 )
                 :
                 (
-                    <FinishQuiz setCurrentQuiz={setCurrentQuiz} currentQuiz={currentQuiz} score={score} />
+                    <FinishQuiz setCurrentQuestion={setCurrentQuestion} setCurrentQuiz={setCurrentQuiz} currentQuiz={currentQuiz} score={score} />
                 )
 
             }

@@ -163,6 +163,7 @@ body {
   justify-content: space-between;
   width: 1160px;
   margin: 0 auto;
+  gap: 48px;
   
 }
 
@@ -445,6 +446,7 @@ body {
   .questionSection{
     width: 100%;
     flex-direction: column;
+    gap: 0;
   }
 
   .questions{
@@ -560,8 +562,37 @@ body {
     margin-bottom: 40px;
   }
 
-  
+  .answers {
+    & .submitAnswer {
+      padding: 20px;
+      gap: 16px;
+      border-radius: 12px;
+      & p {
+        font-size: 18px;
+      }
+    }
 
+    & .answer {
+      & button {
+        width: 100%;
+        gap: 16px;
+        padding: 12px;
+  
+        
+      }
+      & p {
+        font-size: 18px;
+      }
+      & h2 {
+        font-size: 18px;
+      }
+
+      
+    }
+  }
+  
+  
+  
 
   .quizComplete {
 

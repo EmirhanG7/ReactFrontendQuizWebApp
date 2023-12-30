@@ -7,7 +7,6 @@ import { useState } from "react"
 export default function App() {
   const [currentQuiz, setCurrentQuiz] = useState(localStorage.getItem('currentQuiz') ? JSON.parse(localStorage.getItem('currentQuiz')) : []);
   const [currentQuestion, setCurrentQuestion] = useState(localStorage.getItem('currentQuestion') ? JSON.parse(localStorage.getItem('currentQuestion')) : 0);
-  const [isGameOver, setGameOver] = useState(false);
 
 
   function handleQuestionPage(quiz) {

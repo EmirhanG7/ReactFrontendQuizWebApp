@@ -2,13 +2,14 @@ import Header from "./Header"
 import data from '/data.json';
 
 
-export default function FinishQuiz({ score, currentQuiz, setCurrentQuiz }) {
+export default function FinishQuiz({ score, currentQuiz, setCurrentQuiz, setCurrentQuestion }) {
 
     function handlePlayAgain() {
         localStorage.setItem('currentQuiz', JSON.stringify([]));
         localStorage.setItem('currentQuestion', JSON.stringify(0));
         localStorage.setItem('score', JSON.stringify(0));
         setCurrentQuiz([]);
+        setCurrentQuestion(0);
     }
 
 
